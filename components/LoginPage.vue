@@ -1,72 +1,88 @@
 <template>
-  <div
-    v-if="!showRegistration"
-    class="container w-3/4 lg:w-1/4 flex flex-col justify-center p-5 mx-auto my-15 border border-neutral-200 rounded-md shadow-md transition-shadow duration-300 ease-in-out bg-white gap-1"
-  >
-    <form @submit.prevent="auth" class="flex flex-col">
-      <div class="mb-6">
-        <label
-          for="email"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >E-Mail</label
-        >
-        <input
-          v-model="email"
-          type="text"
-          id="email"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="E-Mail"
-        />
-        <ValidationError v-model="emailMessage" />
-      </div>
-      <div class="mb-6 relative">
-        <label
-          for="password"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Password</label
-        >
-        <input
-          v-model="password"
-          :type="showPass ? 'text' : 'password'"
-          id="password"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="•••••••••"
-        />
+  <div>
+    <div class="mt-15 flex flex-col gap-3">
+      <h3
+        class="text-3xl md:text-3xl font-bold text-center text-gray-900 leading-tight"
+      >
+        Willkommen zurück!
+      </h3>
 
-        <button
-          type="button"
-          class="material-symbols-outlined absolute right-3 top-9 text-gray-500 cursor-pointer select-none"
-          @click="togglePassword"
-        >
-          {{ showPass ? "visibility_off" : "visibility" }}
-        </button>
+      <img
+        src="/img/fra_logo_full_white_blue.svg"
+        class="h-11 md:h-20 mx-auto"
+        alt="Frankfurt Airport Logo"
+      />
+    </div>
 
-        <button
-          type="button"
-          class="text-sm text-blue-600 hover:underline absolute right-0 top-full mt-2"
-          @click="forgotPassword"
-        >
-          Passwort vergessen?
+    <div
+      v-if="!showRegistration"
+      class="container w-3/4 lg:w-1/4 flex flex-col justify-center p-5 mx-auto my-10 border border-neutral-200 rounded-md shadow-md transition-shadow duration-300 ease-in-out bg-white gap-1"
+    >
+      <form @submit.prevent="auth" class="flex flex-col">
+        <div class="mb-6">
+          <label
+            for="email"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >E-Mail</label
+          >
+          <input
+            v-model="email"
+            type="text"
+            id="email"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="E-Mail"
+          />
+          <ValidationError v-model="emailMessage" />
+        </div>
+        <div class="mb-6 relative">
+          <label
+            for="password"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Password</label
+          >
+          <input
+            v-model="password"
+            :type="showPass ? 'text' : 'password'"
+            id="password"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="•••••••••"
+          />
+
+          <button
+            type="button"
+            class="material-symbols-outlined absolute right-3 top-9 text-gray-500 cursor-pointer select-none"
+            @click="togglePassword"
+          >
+            {{ showPass ? "visibility_off" : "visibility" }}
+          </button>
+
+          <button
+            type="button"
+            class="text-sm text-blue-600 hover:underline absolute right-0 top-full mt-2"
+            @click="forgotPassword"
+          >
+            Passwort vergessen?
+          </button>
+        </div>
+        <transition name="error" appear>
+          <loginErrorMessage
+            v-if="errorMessage"
+            :error="errorMessage"
+            @close="errorMessage = ''"
+          />
+        </transition>
+        <button type="submit" class="btn self-center mt-5">
+          <span class="material-symbols-outlined mr-2">account_circle</span>
+          Log in
         </button>
-      </div>
-      <transition name="error" appear>
-        <loginErrorMessage
-          v-if="errorMessage"
-          :error="errorMessage"
-          @close="errorMessage = ''"
-        />
-      </transition>
-      <button type="submit" class="btn self-center mt-5">
-        <span class="material-symbols-outlined mr-2">account_circle</span>
-        Log in
+      </form>
+
+      <div class="w-full h-px bg-gray-300 my-4"></div>
+      <p class="text-center mb-2">Sie haben keinen Account?</p>
+      <button type="button" class="btn-white mx-auto" @click="$emit('toggle')">
+        Registrieren
       </button>
-    </form>
-
-    <div class="w-full h-px bg-gray-300 my-4"></div>
-    <p class="text-center mb-2">Sie haben keinen Account?</p>
-    <button type="button" class="btn-white mx-auto" @click="$emit('toggle')">
-      Registrieren
-    </button>
+    </div>
   </div>
 </template>
 
@@ -86,7 +102,7 @@ const errorMessage = ref("");
 const emailMessage = ref("");
 
 // Emits
-const emit = defineEmits(["bookingsData"]);
+const emit = defineEmits(["bookingsData"], ["userData"]);
 
 //Show Password
 const togglePassword = () => {
@@ -137,6 +153,22 @@ async function fetchBookings() {
   }
 }
 
+// Funktion, um userData zu laden
+async function fetchUserData() {
+  try {
+    const data = await $fetch(`${apiBase}/current`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.error(error);
+    errorMessage.value = "User Infos konnten nicht geladen werden.";
+    return [];
+  }
+}
+
 // Login-Funktion
 async function auth() {
   errorMessage.value = "";
@@ -156,16 +188,24 @@ async function auth() {
       // JWT speichern
       localStorage.setItem("jwt", data.token);
 
-      // Buchungen laden
-      const bookingsData = await fetchBookings();
-      localStorage.setItem("allBookings", JSON.stringify(bookingsData));
+      // Buchungen und userData laden
+       const [bookingsData, userData] = await Promise.all([
+        fetchBookings(),
+        fetchUserData()
+      ]);
+
 
       // // Emit an Elternkomponente
       // emit("bookingsData", bookingsData);
 
-      goToMainPage();
+  if (bookingsData && userData) {
+        localStorage.setItem("allBookings", JSON.stringify(bookingsData));
+        localStorage.setItem("userData", JSON.stringify(userData));
+        goToMainPage();
+      } else {
+        errorMessage.value = "Daten konnten nicht vollständig geladen werden.";
+      }
     } else {
-      // Kein Token → Login fehlgeschlagen
       errorMessage.value = "Email oder Passwort falsch";
     }
   } catch (error) {

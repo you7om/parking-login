@@ -1,15 +1,14 @@
-<template >
+<template>
   <div>
-   
+
+
     <LoginPage v-if="!showRegistration" @toggle="toggleRegistration" />
     <RegistrationPage v-else @toggle="toggleRegistration" />
-    
   </div>
 </template>
 
-
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
 
 const showRegistration = ref(false);
 
@@ -18,6 +17,4 @@ const toggleRegistration = () => {
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

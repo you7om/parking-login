@@ -4,6 +4,7 @@
 :root {
   --primary-blue: #008bd2; 
   --primary-blue-dark: #017bb8;
+ --primary-blue-hover: #005a8c
 }
 
 body {
@@ -39,7 +40,8 @@ html {
 
 @layer components {
   .btn {
-    @apply w-auto inline-flex items-center justify-center text-white bg-gradient-to-r from-[var(--primary-blue)] to-[var(--primary-blue-dark)] hover:bg-[#aec0c9] focus:ring-4 focus:ring-blue-300 font-medium 
+    @apply w-auto inline-flex items-center justify-center text-white bg-gradient-to-r from-[var(--primary-blue)] to-[var(--primary-blue-dark)] 
+    hover:bg-(--primary-blue-hover) focus:ring-4 focus:ring-blue-300
     rounded-xl text-sm px-6 py-2.5 me-2 focus:outline-none  cursor-pointer hover:shadow-lg hover:shadow-blue-500/30 transition-all font-semibold;
   }
 
@@ -47,6 +49,7 @@ html {
     @apply w-auto inline-flex items-center justify-center text-[#006396] bg-white border border-[var(--primary-blue)] hover:bg-[#006396] hover:text-white font-medium 
     rounded-xl text-sm px-5 py-2.5 me-2  focus:outline-none  cursor-pointer;
   }
+  
   .active-btn {
     @apply w-auto inline-flex px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wide text-center 
     border transition-all duration-200 ease-in-out bg-[#d1f4e0] text-[#0d7537] border-[#7dda9e];

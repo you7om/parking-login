@@ -13,6 +13,6 @@ import AllBookings from "../components/Bookings/AllBookings";
 
 </script>
 
-<style  scoped>
+<style scoped>
 
 </style>
