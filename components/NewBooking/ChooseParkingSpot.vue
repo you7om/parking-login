@@ -5,7 +5,7 @@
 
       <div class="flex flex-row gap-2 mb-2 items-start">
         <span class="material-symbols-outlined"> key </span>
-        <p>Schlüssel abgeben / mitnehmen</p>
+        <p>{{ name.split(" ")[0] }} : Schlüssel abgeben / mitnehmen</p>
       </div>
 
       <div class="flex flex-row gap-2 items-start">
@@ -13,7 +13,9 @@
         <p>{{ name.split(" ")[5] }} {{ name.split(" ")[6] }}</p>
       </div>
 
-      <button class="btn mt-5 items-center">Auswählen</button>
+      <div class="flex justify-center mt-6">
+        <button class="btn">Auswählen</button>
+      </div>
     </div>
   </div>
 </template>

@@ -1,6 +1,8 @@
 <template>
   <div class="flex flex-col gap-6">
 
+    <ChooseParkingDate />
+
     <div class="flex gap-3 mx-auto mb-5">
       <button 
         @click="isShuttle = false"
@@ -49,6 +51,7 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import ChooseParkingSpot from "../../components/NewBooking/ChooseParkingSpot.vue";
+import ChooseParkingDate from "../../components/NewBooking/ChooseParkingDate.vue";
 
 definePageMeta({
   layout: "myaccount",
