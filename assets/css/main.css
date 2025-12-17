@@ -91,6 +91,9 @@ html {
 }
 
 @layer components {
+  h1 {
+    @apply text-3xl font-bold bg-gradient-to-r from-[var(--primary-blue)] to-[var(--primary-blue-dark)] bg-clip-text text-transparent
+  }
   .btn {
     @apply w-auto inline-flex items-center justify-center text-white bg-gradient-to-r from-[var(--primary-blue)] to-[var(--primary-blue-dark)] 
     hover:bg-(--primary-blue-hover) focus:ring-4 focus:ring-blue-300
@@ -114,4 +117,5 @@ html {
     @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 
     block w-full p-2.5;
   }
+
 }
