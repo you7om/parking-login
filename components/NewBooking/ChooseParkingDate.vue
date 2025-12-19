@@ -7,7 +7,7 @@
     >
       <!-- Date and Time Section -->
       <div
-        class="flex flex-col gap-3 md:gap-0 md:flex-row items-center mt-0 md:mt-2"
+        class="flex flex-col gap-3 md:gap-0 md:flex-row items-center"
       >
         <!-- start -->
         <div class="flex flex-row gap-3">
@@ -153,7 +153,7 @@
       </div>
 
       <!-- Passengers number -->
-      <div class="relative w-60 md:w-auto md:min-w-[200px]">
+      <div class="relative w-60 lg:w-auto md:min-w-[200px]">
         <div
           class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none z-10"
         >
@@ -185,10 +185,12 @@
           </option>
         </select>
       </div>
-    </div>
 
-    <div class="mx-auto">
-      <button class="btn" @click="handleSubmit">Verfügbarkeit & Preise</button>
+      <div class="mx-auto">
+        <button class="btn" @click="handleSubmit">
+          Bestätigen
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -203,9 +205,7 @@ const endDate = ref("");
 const endTime = ref("00:00");
 const personenAnzahl = ref("");
 
-
-// Emit definieren
-const emit = defineEmits(['booking-data-complete']);
+const emit = defineEmits(["booking-data-complete"]);
 
 onMounted(() => {
   const startDatepicker = document.getElementById("datepicker-start");
@@ -236,9 +236,7 @@ onMounted(() => {
   }
 });
 
-// Handle form submission
 const handleSubmit = () => {
-  // Validierung
   if (!startDate.value || !endDate.value || !personenAnzahl.value) {
     return;
   }
@@ -254,8 +252,8 @@ const handleSubmit = () => {
   localStorage.setItem("newBookingData", JSON.stringify(newBookingData));
   console.log(newBookingData);
 
-  // Emit an Parent-Komponente
-  emit('booking-data-complete', newBookingData);}; 
+  emit("booking-data-complete", newBookingData);
+};
 </script>
 
-<style scoped></style> 
+<style scoped></style>

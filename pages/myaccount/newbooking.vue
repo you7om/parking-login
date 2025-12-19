@@ -39,7 +39,7 @@
       </div>
 
       <div
-        class="flex flex-row gap-4 flex-wrap justify-between"
+        class="flex flex-col lg:flex-row gap-5 mx-auto lg:mx-0 justify-center xl:justify-between flex-nowrap"
         v-if="bookingData"
       >
         <ChooseParkingSpot
@@ -59,7 +59,43 @@
       </div>
     </div>
 
-    <ChooseParkingServices />
+    <div>
+      <div class="flex flex-col gap-4 mb-5 mx-5 md:mx-0">
+        <h1>Zusätzliche Leistungen</h1>
+        <h2 class="mb-4">Wählen Sie ein Servicepaket aus</h2>
+      </div>
+      <ChooseSingleServices
+        v-for="singleService in singleServices"
+        :serviceId="singleService.id"
+        :key="singleService.id"
+        :name="singleService.name"
+        :description="singleService.description"
+        :price="singleService.price"
+      />
+    </div>
+
+    <div>
+      <div class="flex flex-col gap-2 mb-5 mx-5 md:mx-0">
+        <h1>Weitere Leistungen</h1>
+        <h2 class="mb-4">Wählen Sie beliebig viele Optionen</h2>
+      </div>
+      <ChooseMultiServices
+        v-for="multiService in multiServices"
+        :serviceId="multiService.id"
+        :key="multiService.id"
+        :name="multiService.name"
+        :description="multiService.description"
+        :price="multiService.price"
+      />
+    </div>
+
+
+    <div>
+      <div class="flex flex-col gap-4 mb-5 mx-5 md:mx-0">
+        <h1>Ihre Angaben</h1>
+      </div>
+      <ChooseUserData />
+    </div>
   </div>
 </template>
 
@@ -67,7 +103,9 @@
 import { ref, computed, onMounted, watch } from "vue";
 import ChooseParkingSpot from "../../components/NewBooking/ChooseParkingSpot.vue";
 import ChooseParkingDate from "../../components/NewBooking/ChooseParkingDate.vue";
-import ChooseParkingServices from "../../components/NewBooking/ChooseParkingServices.vue";
+import ChooseSingleServices from "../../components/NewBooking/ChooseSingleServices.vue";
+import ChooseMultiServices from "../../components/NewBooking/ChooseMultiServices.vue";
+import ChooseUserData from "../../components/NewBooking/ChooseUserData.vue";
 
 definePageMeta({
   layout: "myaccount",
@@ -84,6 +122,8 @@ const isShuttle = ref(false);
 
 const bookingDateAndTimeExist = ref(false);
 const bookingData = ref(null);
+const singleServices = ref([]);
+const multiServices = ref([]);
 
 const filteredVariants = computed(() => {
   const searchTerm = isShuttle.value ? "Shuttle" : "Valet";
@@ -109,6 +149,7 @@ async function fetchParkingVariants() {
   }
 }
 
+// fetch PureParkingPrice
 async function fetchPureParkingPrice(bookingInfo, variantId) {
   try {
     const formatDate = (dateStr) => {
@@ -139,21 +180,45 @@ async function fetchPureParkingPrice(bookingInfo, variantId) {
 
     return data;
   } catch (err) {
-    console.error(`Fehler beim Laden der PureParkingPrice für Variante ${variantId}:`, err);
+    console.error(
+      `Fehler beim Laden der PureParkingPrice für Variante ${variantId}:`,
+      err
+    );
     throw err;
   }
 }
 
 const handlePriceRequest = async (variantId) => {
   if (!bookingData.value) return;
-  
+
   try {
     const priceData = await fetchPureParkingPrice(bookingData.value, variantId);
     parkingPrices.value[variantId] = priceData;
   } catch (err) {
-    console.error(`Fehler beim Laden des Preises für Variante ${variantId}:`, err);
+    console.error(
+      `Fehler beim Laden des Preises für Variante ${variantId}:`,
+      err
+    );
   }
 };
+
+// Fetch services
+async function fetchServices() {
+  try {
+    const data = await $fetch(`${apiBase}/parking-variant-services`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    });
+
+    localStorage.setItem("singleServices", JSON.stringify(data));
+
+    return data.member || data;
+  } catch (err) {
+    console.error("Fehler beim Laden der Servicevarianten:", err);
+    throw err;
+  }
+}
 
 onMounted(async () => {
   try {
@@ -169,6 +234,23 @@ onMounted(async () => {
     const freshVariants = await fetchParkingVariants();
     ParkingVariants.value = freshVariants;
     console.log("Parkvarianten aktualisiert:", ParkingVariants.value);
+
+    // Cache für Services
+    const cachedServices = localStorage.getItem("ServicesData");
+    if (cachedServices) {
+      const parsed = JSON.parse(cachedServices);
+      singleServices.value = parsed.singleSelect || [];
+      multiServices.value = parsed.multiSelect || [];
+      console.log("Single Services aus Cache geladen:", singleServices.value);
+      console.log("Multi Services aus Cache geladen:", multiServices.value);
+    }
+
+    // Frische Services laden
+    const freshServices = await fetchServices();
+    singleServices.value = freshServices.singleSelect || [];
+    multiServices.value = freshServices.multiSelect || [];
+    console.log("Single Services aktualisiert:", singleServices.value);
+    console.log("Multi Services aktualisiert:", multiServices.value);
   } catch (err) {
     error.value = err.message || "Fehler beim Laden";
   } finally {
@@ -195,4 +277,10 @@ const handleBookingComplete = (data) => {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+@reference "tailwindcss";
+
+h2 {
+  @apply text-xl font-semibold;
+}
+</style>

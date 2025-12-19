@@ -1,6 +1,7 @@
 <template>
   <div
-    class="px-5 py-7 my-3 mx-5 md:mx-0 bg-white rounded-xl border border-slate-200 hover:bg-slate-50 transition-all duration-200 cursor-pointer hover:shadow-lg"
+    class="px-5 py-7 my-3 mx-5 md:mx-0 bg-white rounded-xl border border-slate-200 hover:bg-slate-50 transition-all duration-200 
+    cursor-pointer hover:shadow-lg"
   >
     <!-- Compact Info -->
     <div

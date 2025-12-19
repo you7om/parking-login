@@ -7,7 +7,7 @@
 
     <div class="relative flex flex-col">
       <!-- Main Content Area -->
-      <div class="md:mx-auto md:w-3/4 xl:w-3/5 2xl:w-2/4 flex flex-col pb-8">
+      <div class="md:mx-auto md:w-4/5 xl:w-3/4 2xl:w-3/5 flex flex-col pb-8">
         <!-- Welcome Header -->
         <div class="px-5 md:px-0 flex flex-row justify-between items-center my-5 md:my-10">
           <h1
