@@ -102,7 +102,6 @@
           type="text"
           v-model="formData.land"
           class="form-input"
-          value="Deutschland"
           required
         />
       </div>

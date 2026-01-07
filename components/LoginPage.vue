@@ -20,55 +20,51 @@
     >
       <form @submit.prevent="auth" class="flex flex-col">
         <div class="mb-6">
-          <label
-            for="email"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >E-Mail</label
-          >
+          <label for="email" class="block mb-2 text-sm font-medium text-gray-900">
+            E-Mail
+          </label>
           <input
-            v-model="email"
-            type="text"
-            id="email"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="E-Mail"
+              v-model="email"
+              type="text"
+              id="email"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              placeholder="E-Mail"
           />
           <ValidationError v-model="emailMessage" />
         </div>
         <div class="mb-6 relative">
-          <label
-            for="password"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >Password</label
-          >
+          <label for="password" class="block mb-2 text-sm font-medium text-gray-900">
+            Password
+          </label>
           <input
-            v-model="password"
-            :type="showPass ? 'text' : 'password'"
-            id="password"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="•••••••••"
+              v-model="password"
+              :type="showPass ? 'text' : 'password'"
+              id="password"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              placeholder="•••••••••"
           />
 
           <button
-            type="button"
-            class="material-symbols-outlined absolute right-3 top-9 text-gray-500 cursor-pointer select-none"
-            @click="togglePassword"
+              type="button"
+              class="material-symbols-outlined absolute right-3 top-9 text-gray-500 cursor-pointer select-none"
+              @click="togglePassword"
           >
             {{ showPass ? "visibility_off" : "visibility" }}
           </button>
 
           <button
-            type="button"
-            class="text-sm text-blue-600 hover:underline absolute right-0 top-full mt-2"
-            @click="forgotPassword"
+              type="button"
+              class="text-sm text-blue-600 hover:underline absolute right-0 top-full mt-2"
+              @click="forgotPassword"
           >
             Passwort vergessen?
           </button>
         </div>
         <transition name="error" appear>
           <loginErrorMessage
-            v-if="errorMessage"
-            :error="errorMessage"
-            @close="errorMessage = ''"
+              v-if="errorMessage"
+              :error="errorMessage"
+              @close="errorMessage = ''"
           />
         </transition>
         <button type="submit" class="btn self-center mt-5">

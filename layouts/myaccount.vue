@@ -2,7 +2,7 @@
   <div class="relative w-full">
     <!-- Fixiertes Hintergrundbild -->
     <div
-      class="fixed inset-0 bg-[url('/img/parking-cover.png')] bg-cover bg-center -z-10"
+      class="fixed inset-0 bg-[#eefdff] bg-cover bg-center -z-10"
     ></div>
 
     <div class="relative flex flex-col">

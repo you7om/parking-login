@@ -5,13 +5,20 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ["~/assets/css/main.css"],
   modules: ["@nuxt/ui"],
-
+  ssr: true,      // wichtig für generate
+  nitro: {
+    preset: 'static'
+  },
   vite: {
     plugins: [tailwindcss()],
   },
 
   app: {
     head: {
+      htmlAttrs: {
+        class: 'light',
+        lang: 'de'
+      },
       title: "Parking Soft",
       meta: [
         { name: "description", content: "Login Page for Parking Soft" },

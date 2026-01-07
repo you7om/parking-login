@@ -12,7 +12,7 @@
       
       <!-- Aktive Buchungen -->
       <NuxtLink 
-        to="/myaccount/bookings"
+        to="/myaccount"
         class="group relative block"
       >
         <div class="absolute inset-0 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-2xl opacity-0 group-hover:opacity-5 transition-opacity"></div>
@@ -35,7 +35,7 @@
 
       <!-- Abgeschlossen -->
       <NuxtLink 
-        to="/myaccount/bookings"
+        to="/myaccount"
         class="group relative block"
       >
         <div class="absolute inset-0 bg-gradient-to-br from-slate-500 to-slate-600 rounded-2xl opacity-0 group-hover:opacity-5 transition-opacity"></div>
@@ -59,7 +59,7 @@
     <!-- Nächste Buchung -->
     <NuxtLink 
       v-if="nextBooking" 
-      to="/myaccount/bookings"
+      to="/myaccount"
       class="block bg-white/80 backdrop-blur-sm border border-slate-200/50 rounded-2xl p-6 mb-8 hover:shadow-lg transition-all cursor-pointer"
     >
       <div class="flex items-center gap-3 mb-4">
@@ -130,14 +130,14 @@
       </div>
       <h3 class="text-xl font-bold text-slate-700 mb-2">Keine bevorstehenden Buchungen</h3>
       <p class="text-slate-600 mb-6">Sie haben aktuell keine aktiven Parkplatz-Buchungen.</p>
-      <NuxtLink to="/booking" class="btn inline-block">
+      <NuxtLink to="/myaccount" class="btn inline-block">
         Jetzt buchen
       </NuxtLink>
     </div>
 
 <!-- Letzte Aktivitäten -->
 <NuxtLink 
-  to="/myaccount/bookings"
+  to="/myaccount"
   class="block bg-white/80 backdrop-blur-sm border border-slate-200/50 rounded-2xl p-6 mt-8 hover:shadow-lg transition-all cursor-pointer"
 >
   <div class="flex items-center justify-between mb-4">
